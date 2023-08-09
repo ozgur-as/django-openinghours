@@ -58,7 +58,7 @@ Add the ``openinghours`` URLs to your ``urls.py``
 
     urlpatterns = [
         ...
-        url(r'^openinghours/', include('openinghours.urls')),
+        path('openinghours/', include('openinghours.urls')),
     ]
 
 Before your tags/filters are available in your templates, load them
