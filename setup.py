@@ -5,7 +5,7 @@ setup(
     name="django-openinghours",
     version=app.__version__,
     description=open('DESCRIPTION').read(),
-    long_description=open('README.rst').read(),
+    long_description=open('README.rst', 'r', encoding='utf-8').read(),
     license='The MIT License',
     platforms=['OS Independent'],
     keywords='django, app, openinghours, opening hours, opening times',
