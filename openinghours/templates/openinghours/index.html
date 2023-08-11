@@ -41,6 +41,12 @@
 
 {% opening_hours location %}
 <hr>
+<p>Time-formatted opening hours (24h):</p>
+{% verbatim %}
+<pre>{% opening_hours location timeformat=24h %}</pre>
+{% endverbatim %}
+{% opening_hours location timeformat="24h" %}
+<hr>
 <p>Concise opening hours:</p>
 {% verbatim %}
 <pre>{% opening_hours location concise=1 %}</pre>
