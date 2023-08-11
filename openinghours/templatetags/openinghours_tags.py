@@ -95,7 +95,7 @@ def get_closing_rule_for_now(location, attr=None):
 
 
 @register.simple_tag
-def opening_hours(location=None, concise=False):
+def opening_hours(location=None, concise=False,timeformat="12h"):
     """
     Creates a rendered listing of hours.
     """
@@ -115,19 +115,32 @@ def opening_hours(location=None, concise=False):
 
     ohrs.order_by('weekday', 'from_hour')
 
-    for o in ohrs:
-        days.append({
-            'day_number': o.weekday,
-            'name': o.get_weekday_display(),
-            'from_hour': o.from_hour,
-            'to_hour': o.to_hour,
-            'hours': '%s%s - %s%s' % (
-                o.from_hour.strftime('%I:%M').lstrip('0'),
-                o.from_hour.strftime('%p').lower(),
-                o.to_hour.strftime('%I:%M').lstrip('0'),
-                o.to_hour.strftime('%p').lower()
-            )
-        })
+    if timeformat == "24h":
+        for o in ohrs:
+            days.append({
+                'day_number': o.weekday,
+                'name': o.get_weekday_display(),
+                'from_hour': o.from_hour,
+                'to_hour': o.to_hour,
+                'hours': '%s - %s' % (
+                    o.from_hour.strftime('%H:%M'),
+                    o.to_hour.strftime('%H:%M'),
+                )
+            })
+    else:
+        for o in ohrs:
+            days.append({
+                'day_number': o.weekday,
+                'name': o.get_weekday_display(),
+                'from_hour': o.from_hour,
+                'to_hour': o.to_hour,
+                'hours': '%s%s - %s%s' % (
+                    o.from_hour.strftime('%I:%M').lstrip('0'),
+                    o.from_hour.strftime('%p').lower(),
+                    o.to_hour.strftime('%I:%M').lstrip('0'),
+                    o.to_hour.strftime('%p').lower()
+                )
+            })
 
     open_days = [o.weekday for o in ohrs]
     for day_number, day_name in WEEKDAYS:
